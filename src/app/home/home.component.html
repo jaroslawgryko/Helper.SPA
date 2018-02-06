@@ -1,0 +1,16 @@
+<div *ngIf="!registerMode" style="text-align:center">
+  <h1>
+    Helper
+  </h1>
+  <p class="lead">Zarejestruj się!</p>
+  <div class="text-center">
+    <button class="btn btn-primary btn-lg" (click)="registerToggle()" >Rejestracja</button>
+    <button class="btn btn-info btn-lg">Pomoc</button>
+  </div>
+</div>
+
+<div *ngIf="registerMode" class="container">
+  <div class="col-md-4 col-md-offset-4">
+    <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+  </div>
+</div>
