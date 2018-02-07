@@ -10,7 +10,7 @@
       <a class="navbar-brand" href="#">Helper App</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" *ngIf="loggedIn()">
         <li><a href="">Partnerzy</a></li>
         <li><a href="">Csv</a></li>
         <li><a href="">Struktura</a></li>
@@ -28,16 +28,15 @@
       </form>
 
       <ul *ngIf="loggedIn()" class="nav navbar-nav navbar-right">
-        <li><a (click)="logout()">Wyloguj</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Zalogowano {{ authService.decodedToken?.unique_name | titlecase }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#"><i class="fa fa-user"></i>Edytuj profil</a></li>
+        <li class="dropdown" dropdown>
+          <a href="#" class="dropdown-toggle" dropdownToggle>Zalogowano {{ authService.decodedToken?.unique_name | titlecase }} <span class="caret"></span></a>
+          <ul class="dropdown-menu" *bsDropdownMenu>
+            <li><a href="#"><i class="fa fa-user"></i> Edytuj profil</a></li>
             <li role="separator" class="divider"></li>
-            <li><a (click)="logout()"><i class="fa fa-sign-out"></i>Wyloguja</a></li>
+            <li><a (click)="logout()"><i class="fa fa-sign-out"></i> Wyloguj</a></li>
           </ul>
         </li>
-      </ul>      
+      </ul>     
 
     </div><!--/.navbar-collapse -->
   </div>
