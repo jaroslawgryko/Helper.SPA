@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
   login() {
     // console.log(this.model);
     this.authService.login(this.model).subscribe(data => {
-     this.alertify.success('logged in successfully');
+     this.alertify.success('zalogowano');
     }, error => {
      this.alertify.error(error);
     });
@@ -28,12 +28,11 @@ export class NavComponent implements OnInit {
   logout() {
     this.authService.userToken = null;
     localStorage.removeItem('token');
-    this.alertify.message('logged out');
+    this.alertify.message('wylogowano');
   }
 
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
   }
 
 }
