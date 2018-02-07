@@ -12,6 +12,13 @@ import { AlertifyService } from './_services/alertify.service';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
+import { MemberListComponent } from './member-list/member-list.component';
+import { StrukturaComponent } from './struktura/struktura.component';
+import { CsvComponent } from './csv/csv.component';
+import { RwaComponent } from './rwa/rwa.component';
+
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './routes';
 
 
 @NgModule({
@@ -20,13 +27,18 @@ import { RegisterComponent } from './register/register.component';
     ValueComponent,
     HomeComponent,
     NavComponent,
-    RegisterComponent
+    RegisterComponent,
+    MemberListComponent,
+    StrukturaComponent,
+    CsvComponent,
+    RwaComponent
 ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     AuthService,
