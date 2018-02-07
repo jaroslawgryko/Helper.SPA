@@ -19,6 +19,7 @@ import { RwaComponent } from './rwa/rwa.component';
 
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { appRoutes } from './routes';
   ],
   providers: [
     AuthService,
-    AlertifyService
+    AlertifyService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
