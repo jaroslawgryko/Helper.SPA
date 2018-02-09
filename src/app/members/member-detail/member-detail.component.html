@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <h1>Profil: {{user?.username}}</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">      
+        <div class="panel-body">
+          <div>
+            <strong>Email:</strong>
+            <p>{{user?.email}}</p>
+          </div>          
+          <div>
+            <strong>Instytucja:</strong>
+            <p>{{user?.instytucjaNazwa}}</p>
+          </div>
+          <div>
+            <strong>Utworzono:</strong>
+            <p>{{user?.utworzony }}</p>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="btn-group-justified">
+            <div class="btn-group">
+              <button class="btn btn-primary">A1</button>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-success">A2</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="Dane">
+            <h4>Email:</h4>
+            <p>{{user?.email}}</p>
+            <h4>Instytucja:</h4>
+            <p>{{user?.instytucjaNazwa}}</p>
+          </tab>
+          <tab heading="Instytucja">
+            <h4>Nazwa:</h4>
+            <p>tutaj nazwa</p>
+            <h4>Symbol:</h4>
+            <p>tutaj symbol</p>
+            <h4>Opis:</h4>
+            <p>tutaj opis</p>
+          </tab>
+          <tab heading="Jednostki">
+            <p>tutaj zmiana jednostki głównej</p>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

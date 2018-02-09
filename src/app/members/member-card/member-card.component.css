@@ -1,0 +1,29 @@
+.panel-body {
+    padding: 5px;
+}
+
+.panel-body img {
+    width: 100%;
+}
+
+h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #3a3c41;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+h5 small {
+    font-weight: bold;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.panel-footer {
+    padding: 5px 5px 0px 5px;
+    background-color: #ffffff;
+    border-top: 1px solid #dddddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;    
+}

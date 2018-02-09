@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="panel-body">    
+    <div class="text-left">
+      <h5><i class="fa fa-university"></i> {{user?.instytucjaNazwa}}</h5>
+    </div>    
+    <div class="text-left">      
+      <h5><i class="fa fa-user"></i> {{user?.username}}</h5>
+    </div>
+    <div class="text-left">      
+      <small><i class="fa fa-phone"> {{user.telefon}}</i></small>, <small><i class="fa fa-envelope"> {{user.email}}</i></small>
+    </div>    
+    <div class="text-left">
+      <h5><small> Dodano: {{user?.utworzony | date: 'yyyy-MM-dd HH:mm' }}</small></h5>
+    </div>
+    <div class="text-left">
+      <h5><small> Aktywny: {{user?.ostatniaAktywnosc | date: 'yyyy-MM-dd HH:mm' }}</small></h5>
+    </div>    
+  </div>
+  <div class="panel-footer">
+    <ul class="list-inline">
+      <li><button class="btn btn-primary btn-xs" [routerLink]="['/members/', user.id]"><i class="fa fa-user"></i></button></li>
+    </ul>
+  </div>
+</div> 
