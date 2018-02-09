@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -31,6 +32,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
   declarations: [
     AppComponent,
     ValueComponent,
+    TimeAgoPipe,
     HomeComponent,
     NavComponent,
     RegisterComponent,

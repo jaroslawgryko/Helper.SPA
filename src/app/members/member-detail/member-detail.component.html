@@ -12,6 +12,10 @@
             <p>{{user?.email}}</p>
           </div>          
           <div>
+            <strong>Telefon:</strong>
+            <p>{{user?.telefon}}</p>
+          </div>                    
+          <div>
             <strong>Instytucja:</strong>
             <p>{{user?.instytucjaNazwa}}</p>
           </div>
@@ -19,6 +23,10 @@
             <strong>Utworzono:</strong>
             <p>{{user?.utworzony }}</p>
           </div>
+          <div>
+            <strong>Ostatnia aktywość:</strong>
+            <p>{{user?.ostatniaAktywnosc | timeAgo }}</p>
+          </div>          
         </div>
         <div class="panel-footer">
           <div class="btn-group-justified">
@@ -35,22 +43,19 @@
     <div class="col-sm-8">
       <div class="tab-panel">
         <tabset class="member-tabset">
-          <tab heading="Dane">
+          <tab heading="Użytkownik">
             <h4>Email:</h4>
             <p>{{user?.email}}</p>
-            <h4>Instytucja:</h4>
-            <p>{{user?.instytucjaNazwa}}</p>
+            <h4>Telefon:</h4>
+            <p>{{user?.telefon}}</p>
           </tab>
           <tab heading="Instytucja">
             <h4>Nazwa:</h4>
-            <p>tutaj nazwa</p>
+            <p>{{user?.instytucjaNazwa}}</p>
             <h4>Symbol:</h4>
-            <p>tutaj symbol</p>
-            <h4>Opis:</h4>
-            <p>tutaj opis</p>
-          </tab>
-          <tab heading="Jednostki">
-            <p>tutaj zmiana jednostki głównej</p>
+            <p>{{user?.instytucjaSymbol}}</p>
+            <h4>Rodzaj:</h4>
+            <p>{{user?.instytucjaRodzaj}}</p>            
           </tab>
         </tabset>
       </div>
