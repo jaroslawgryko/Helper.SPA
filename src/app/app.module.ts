@@ -1,3 +1,5 @@
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-chages.guard';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,6 +29,7 @@ import { CsvComponent } from './csv/csv.component';
 import { RwaComponent } from './rwa/rwa.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 
 
 
@@ -43,7 +46,8 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
     CsvComponent,
     RwaComponent,
     MemberDetailComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberEditComponent
 ],
   imports: [
     BrowserModule,
@@ -60,7 +64,9 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
     AuthGuard,
     UserService,
     MemberListResolver,
-    MemberDetailResolver
+    MemberDetailResolver,
+    MemberEditResolver,
+    PreventUnsavedChanges
   ],
   bootstrap: [AppComponent]
 })

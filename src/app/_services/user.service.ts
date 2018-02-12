@@ -55,4 +55,8 @@ export class UserService {
           modelStateErrors || 'Server error'
         );
       }
+
+      updateUser(id: number, user: User) {
+        return this.authHttp.put(this.baseUrl +  'users/' + id, user).catch(this.handleError);
+      }
 }

@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Twój profil</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="alert alert-info" [hidden]="!editForm.dirty">
+          <p><strong>Informacja:</strong> Dokonałeś zmian. Niezapisane dane zostaną utracone!</p>
+        </div>
+      </div>    
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">      
+        <div class="panel-body">
+          <div>
+            <strong>Email:</strong>
+            <p>{{user.email}}</p>
+          </div>          
+          <div>
+            <strong>Telefon:</strong>
+            <p>{{user.telefon}}</p>
+          </div>                    
+          <div>
+            <strong>Instytucja:</strong>
+            <p>{{user.instytucjaNazwa}}</p>
+          </div>
+          <div>
+            <strong>Utworzono:</strong>
+            <p>{{user.utworzony }}</p>
+          </div>
+          <div>
+            <strong>Ostatnia aktywość:</strong>
+            <p>{{user.ostatniaAktywnosc | timeAgo }}</p>
+          </div>          
+        </div>
+        <div class="panel-footer">
+            <button [disabled]="!editForm.dirty" form="editFormForButton" class="btn btn-success btn-block">Zapisz zmiany</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <form #editForm="ngForm" id="editFormForButton" (ngSubmit)="updateUser()">
+        <tabset class="member-tabset">
+            <tab heading="Użytkownik">
+              <h4>Email:</h4>
+              <input type="text" class="form-control" name="email" [(ngModel)]="user.email">
+              <h4>Telefon:</h4>
+              <input type="text" class="form-control" name="telefon" [(ngModel)]="user.telefon">
+            </tab>
+            <tab heading="Instytucja">
+              <label for="instytucjaNazwa">Nazwa</label>
+              <input type="text" class="form-control" name="instytucjaNazwa" [(ngModel)]="user.instytucjaNazwa">
+              <label for="instytucjaSymbol">Symbol</label>
+              <input type="text" class="form-control" name="instytucjaSymbol" [(ngModel)]="user.instytucjaSymbol">
+              <label for="instytucjaRodzaj">Rodzaj</label>
+              <input type="text" class="form-control" name="instytucjaRodzaj" [(ngModel)]="user.instytucjaRodzaj">          
+            </tab>
+          </tabset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
