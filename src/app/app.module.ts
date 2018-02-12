@@ -1,3 +1,5 @@
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -56,7 +58,9 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
     AuthService,
     AlertifyService,
     AuthGuard,
-    UserService
+    UserService,
+    MemberListResolver,
+    MemberDetailResolver
   ],
   bootstrap: [AppComponent]
 })
