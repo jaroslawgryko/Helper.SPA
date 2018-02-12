@@ -56,7 +56,9 @@
               <label for="instytucjaSymbol">Symbol</label>
               <input type="text" class="form-control" name="instytucjaSymbol" [(ngModel)]="user.instytucjaSymbol">
               <label for="instytucjaRodzaj">Rodzaj</label>
-              <input type="text" class="form-control" name="instytucjaRodzaj" [(ngModel)]="user.instytucjaRodzaj">          
+              <select id="marka" class="form-control" name="instytucjaRodzaj" [(ngModel)]="user.instytucjaRodzaj">
+                  <option *ngFor="let rodzaj of rodzajeInstytucji" value="{{ rodzaj }}">{{ rodzaj }}</option>
+              </select>                       
             </tab>
           </tabset>
         </form>

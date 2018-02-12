@@ -15,6 +15,16 @@ export class MemberEditComponent implements OnInit {
   user: User;
   @ViewChild('editForm') editForm: NgForm;
 
+  rodzajeInstytucji: string[] = [
+    'urząd wojewódzki',
+    'ministerstwo',
+    'archiwum państwowe',
+    'uczelnia wyższa',
+    'urzęd centralny',
+    'samorząd',
+    'inny'
+  ];
+
   constructor(private route: ActivatedRoute, private alertify: AlertifyService,
     private userSevice: UserService,
     private authSevice: AuthService) { }
