@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../_models/User';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { AuthHttp } from 'angular2-jwt';
+import { PaginatedResult } from '../_models/pagination';
 
 
 @Injectable()
@@ -15,11 +16,27 @@ export class UserService {
 
     constructor(private authHttp: AuthHttp) { }
 
-    getUsers(): Observable<User[]> {
-        return this.authHttp.get(this.baseUrl + 'users')
-            .map(response => <User[]>response.json())
-            .catch(this.handleError);
-    }
+    getUsers(page?: number, itemsPerPage?: number) {
+      const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+      let queryString = '?';
+
+      if (page != null && itemsPerPage != null) {
+        queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage;
+      }
+
+      return this.authHttp
+        .get(this.baseUrl + 'users' + queryString)
+        .map((response: Response) => {
+          paginatedResult.result = response.json();
+
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+
+          return paginatedResult;
+        })
+        .catch(this.handleError);
+  }
 
     getUser(id): Observable<User> {
       return this.authHttp
