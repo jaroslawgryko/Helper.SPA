@@ -15,6 +15,21 @@ export class MemberListComponent implements OnInit {
   users: User[];
   pagination: Pagination;
 
+  // user: User = JSON.parse(localStorage.getItem('user'));
+  rodzajeInstytucji = [
+      {value: 'urząd wojewódzki', display: 'Urzędy wojewódzkie'},
+      {value: 'ministerstwo', display: 'Ministerstwa'},
+      {value: 'archiwum państwowe', display: 'Archiwa państwowe'},
+      {value: 'uczelnia wyższa', display: 'Uczelnie wyższe'},
+      {value: 'urzęd centralny', display: 'Urzędy centralne'},
+      {value: 'samorząd', display: 'Samorząd'},
+      {value: 'sąd', display: 'Sądy'},
+      {value: 'pozostali', display: 'Pozostałe'},
+      {value: 'all', display: 'Wszystkie'}
+  ];
+
+  userParams: any = {};
+
   constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -22,10 +37,11 @@ export class MemberListComponent implements OnInit {
       this.users = data['users'].result;
       this.pagination = data['users'].pagination;
     });
+
   }
 
   loadUsers() {
-    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
+    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
       .subscribe((res: PaginatedResult<User[]>) => {
         this.users = res.result;
         this.pagination = res.pagination;
@@ -38,6 +54,11 @@ export class MemberListComponent implements OnInit {
     // console.log('Page changed to: ' + event.page);
     // console.log('Number items per page: ' + event.itemsPerPage);
     this.pagination.currentPage = event.page;
+    this.loadUsers();
+  }
+
+  resetFilters() {
+    this.userParams.instytucjaRodzaj = 'all';
     this.loadUsers();
   }
 }
