@@ -26,7 +26,7 @@ export class UserService {
       }
 
       if (userParams != null) {
-        queryString += '&instytucjaRodzaj=' + userParams.instytucjaRodzaj;
+        queryString += '&instytucjaRodzaj=' + userParams.instytucjaRodzaj + '&orderBy=' + userParams.orderBy;
       }
 
       return this.authHttp

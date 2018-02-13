@@ -38,6 +38,7 @@ export class MemberListComponent implements OnInit {
       this.pagination = data['users'].pagination;
     });
 
+    this.userParams.orderBy = 'ostatniaAktywnosc';
   }
 
   loadUsers() {
