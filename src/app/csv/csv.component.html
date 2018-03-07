@@ -1,3 +1,205 @@
-<p>
-  csv works!
-</p>
+<div class="container">
+  <dir class="row">
+    <div class="col-md-2">
+      <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+      <button (click)="fileInput.click()" class="btn btn-success">Wybierz plik</button>
+    </div>
+    <div class="col-md-4" *ngIf="csvData">
+      <div class="btn-group">
+        <label class="btn btn-success" [(ngModel)]="csvDataType" btnRadio="jednostki">Jednostki</label>
+        <label class="btn btn-success" [(ngModel)]="csvDataType" btnRadio="pracownicy">Pracownicy</label>
+        <label class="btn btn-success" [(ngModel)]="csvDataType" btnRadio="rwa">Rwa</label>
+      </div>
+    </div>
+
+    <div class="col-md-2" *ngIf="csvData && csvDataType == 'rwa'">
+      <button form="rwaFormForButton" class="btn btn-primary">Sprawdź Rwa</button>
+    </div>
+
+    <div class="col-md-2" *ngIf="csvData && csvDataType == 'jednostki'">
+      <button form="jednostkiFormForButton" class="btn btn-primary">Sprawdź Jednostki</button>
+    </div>
+
+    <div class="col-md-2" *ngIf="csvData && csvDataType == 'pracownicy'">
+      <button form="pracownicyFormForButton" class="btn btn-primary">Sprawdź Pracowników</button>
+    </div>
+    
+    <div class="col-md-2" *ngIf="csvData && csvErrs >= 0">
+      <pre class="card card-block card-header">Liczba błędów: {{ csvErrs }}</pre>
+    </div>
+
+    <div class="col-md-2" *ngIf="csvData && csvDataType == 'jednostki' && csvErrs === 0">
+      <button class="btn btn-success" (click)="importJednostek()">Import jednostek</button>
+    </div>    
+
+  </dir>
+
+  <div class="row" *ngIf="csvData && csvDataType == 'jednostki'">
+    <form #jednostkiForm="ngForm" class="form" id="jednostkiFormForButton" (ngSubmit)="checkJednostki()">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="symbol">Symbol:</label>
+          <select class="form-control input-sm" id="symbol" required [(ngModel)]="jednostkaMap.symbol" name="symbol">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="nazwa">Nazwa:</label>
+          <select class="form-control input-sm" id="nazwa" required [(ngModel)]="jednostkaMap.nazwa" name="nazwa">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="opis">Opis:</label>
+          <select class="form-control input-sm" id="opis" required [(ngModel)]="jednostkaMap.opis" name="opis">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="nadrzedny">Nadrzędny:</label>
+          <select class="form-control input-sm" id="nadrzedny" required [(ngModel)]="jednostkaMap.nadrzedny" name="nadrzedny">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="row" *ngIf="csvData && csvDataType == 'pracownicy'">
+    <form #jednostkiForm="ngForm" class="form" id="pracownicyFormForButton" (ngSubmit)="checkPracownicy()">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="form-group">
+            <label for="imie">Imię:</label>
+            <select class="form-control input-sm" id="imie" required [(ngModel)]="pracownikMap.imie" name="imie">
+             <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>      
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="form-group">
+            <label for="nazwisko">Nazwisko:</label>
+            <select class="form-control input-sm" id="nazwisko" required [(ngModel)]="pracownikMap.nazwisko" name="nazwisko">
+             <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>      
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="form-group">
+            <label for="stanowisko">Stanowisko:</label>
+            <select class="form-control input-sm" id="stanowisko" required [(ngModel)]="pracownikMap.stanowisko" name="stanowisko">
+             <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>      
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="form-group">
+            <label for="inicjaly">Inicjały:</label>
+            <select class="form-control input-sm" id="inicjaly" required [(ngModel)]="pracownikMap.inicjaly" name="inicjaly">
+             <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>         
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <select class="form-control input-sm" id="email" required [(ngModel)]="pracownikMap.email" name="email">
+             <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div> 
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="form-group">
+            <label for="login">Login:</label>
+            <select class="form-control input-sm" id="login" required [(ngModel)]="pracownikMap.login" name="login">
+             <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div> 
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="form-group">
+            <label for="loginAD">LoginAD:</label>
+            <select class="form-control input-sm" id="loginAD" required [(ngModel)]="pracownikMap.loginAD" name="loginAD">
+             <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div> 
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="form-group">
+            <label for="symbol">Symbol jednostki:</label>
+            <select class="form-control input-sm" id="symbol" required [(ngModel)]="pracownikMap.symbol" name="symbol">
+             <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div> 
+    </form>    
+  </div>
+
+  <div class="row" *ngIf="csvData && csvDataType == 'rwa'">
+
+    <form #rwaForm="ngForm" class="form" id="rwaFormForButton" (ngSubmit)="checkRwa()">
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="symbol">Symbol:</label>
+          <select class="form-control input-sm" id="symbol" required [(ngModel)]="rwaMap.symbol" name="symbol">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="kArchiwumMacierzyste">Kat. macierzysta:</label>
+          <select class="form-control input-sm" id="kArchiwumMacierzyste" required [(ngModel)]="rwaMap.kArchiwumMacierzyste" name="kArchiwumMacierzyste">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="nazwa">Nazwa:</label>
+          <select class="form-control input-sm" id="nazwa" required [(ngModel)]="rwaMap.nazwa" name="nazwa">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="kArchiwumInne">Kat. inna:</label>
+          <select class="form-control input-sm" id="kArchiwumInne" required [(ngModel)]="rwaMap.kArchiwumInne" name="kArchiwumInne">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="kArchiwumInneOpis">Kat. inna opis:</label>
+          <select class="form-control input-sm" id="kArchiwumInneOpis" required [(ngModel)]="rwaMap.kArchiwumInneOpis" name="kArchiwumInneOpis">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+          <label for="typProwadzenia">Typ prowadzenia:</label>
+          <select class="form-control input-sm" id="typProwadzenia" required [(ngModel)]="rwaMap.typProwadzenia" name="typProwadzenia">
+            <option *ngFor="let h of csvHeaders" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+
+  <hr>
+
+  <app-csv-content *ngIf="csvData" [csvData]="csvData" [csvHeaders]="csvHeaders" [csvErrors]="csvErrors" [csvErrs]="csvErrs"></app-csv-content>
+
+</div>

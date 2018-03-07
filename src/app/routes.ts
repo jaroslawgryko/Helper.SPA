@@ -1,3 +1,4 @@
+import { JednostkaListaComponent } from './struktura/jednostka-lista/jednostka-lista.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
@@ -11,6 +12,7 @@ import { RwaComponent } from './rwa/rwa.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-chages.guard';
+import { JednostkiResolver } from './_resolvers/jednostki.resolver';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },

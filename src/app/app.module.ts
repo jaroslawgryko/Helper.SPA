@@ -1,3 +1,4 @@
+import { JednostkaListaComponent } from './struktura/jednostka-lista/jednostka-lista.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-chages.guard';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
@@ -9,6 +10,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { BsDropdownModule, TabsModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
+import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
@@ -26,10 +28,13 @@ import { RegisterComponent } from './register/register.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { StrukturaComponent } from './struktura/struktura.component';
 import { CsvComponent } from './csv/csv.component';
+
 import { RwaComponent } from './rwa/rwa.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { JednostkiResolver } from './_resolvers/jednostki.resolver';
+import { CsvContentComponent } from './csv/csv-content/csv-content.component';
 
 
 
@@ -43,12 +48,14 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
     RegisterComponent,
     MemberListComponent,
     StrukturaComponent,
-    CsvComponent,
     RwaComponent,
     MemberDetailComponent,
     MemberCardComponent,
-    MemberEditComponent
-],
+    MemberEditComponent,
+    JednostkaListaComponent,
+    CsvComponent,
+    CsvContentComponent
+  ],
   imports: [
     BrowserModule,
     HttpModule,
@@ -59,7 +66,8 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
     AuthModule,
     TabsModule.forRoot(),
     PaginationModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    Ng2TableModule
   ],
   providers: [
     AuthService,
@@ -69,7 +77,8 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
     MemberListResolver,
     MemberDetailResolver,
     MemberEditResolver,
-    PreventUnsavedChanges
+    PreventUnsavedChanges,
+    JednostkiResolver
   ],
   bootstrap: [AppComponent]
 })
