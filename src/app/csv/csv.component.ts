@@ -1,3 +1,4 @@
+import { JednostkaImport } from './../_models/JednostkaImport';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../_services/auth.service';
@@ -15,6 +16,7 @@ import * as Papa from 'papaparse';
 export class CsvComponent implements OnInit {
 
   jednostki: Jednostka[];
+  jednostkiForImport;
 
   dataSubscription: Subscription;
   csvHeaders: string[];
@@ -135,6 +137,7 @@ export class CsvComponent implements OnInit {
     const symbols: string[] = [];
     const parents: string[] = [];
     this.csvErrs = 0;
+    this.jednostkiForImport = [];
 
     for (let i = 0; i < this.jednostki.length; i++) {
       symbols.push(this.jednostki[i].symbol);
@@ -197,6 +200,21 @@ export class CsvComponent implements OnInit {
     }
 
     this.csvErrors = errors;
+    this.jednostkiForImport = [];
+
+    if (this.csvErrs === 0) {
+      for (let i = 0; i < this.csvData.length; i++) {
+        this.jednostkiForImport.push(
+          {
+            nazwa: this.csvData[i][this.jednostkaMap['nazwa']],
+            symbol: this.csvData[i][this.jednostkaMap['symbol']],
+            opis: this.csvData[i][this.jednostkaMap['opis']],
+            nadrzedny: this.csvData[i][this.jednostkaMap['nadrzedny']]
+          }
+        );
+      }
+
+    }
 
   }
 
@@ -239,6 +257,17 @@ export class CsvComponent implements OnInit {
 
   importJednostek() {
 
+    if (this.jednostkiForImport.length > 0) {
+      this.userService.importJednostki(this.authService.decodedToken.nameid, this.jednostkiForImport)
+        .subscribe(() => {
+          this.loadJednostki();
+          this.alertify.success('Jednostki zostały dodane');
+        }, error => {
+          this.alertify.error(error);
+        });
+    } else {
+      this.alertify.message('Brak jednostek do zaimportowania');
+    }
   }
 
 }

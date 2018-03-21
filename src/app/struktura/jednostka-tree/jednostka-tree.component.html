@@ -1,0 +1,14 @@
+<div class="tree-container">
+    <div class="tree-info">
+        <p class="tree-title">Jednostki d</p>
+    </div>
+    <div class="tree-content">
+        <tree #treeJednostkiComponent
+              [tree]="treeJednostki"
+              (nodeSelected)="logEvent($event)">
+        </tree>
+    </div>
+  </div>
+  
+
+  

@@ -9,6 +9,7 @@ import 'rxjs/add/observable/throw';
 import { AuthHttp } from 'angular2-jwt';
 import { PaginatedResult } from '../_models/pagination';
 import { Jednostka } from '../_models/Jednostka';
+import { JednostkaImport } from '../_models/JednostkaImport';
 
 
 @Injectable()
@@ -88,5 +89,12 @@ export class UserService {
     return this.authHttp.get(this.baseUrl + 'users/' + userId + '/jednostki' )
     .map(response => <User>response.json())
     .catch(this.handleError);
+  }
+
+  importJednostki(userId: number, jednostkiImport: any[]) {
+    return this.authHttp.post(this.baseUrl + 'users/' + userId + '/jednostki/import', jednostkiImport)
+      .map( (respons: Response) => {
+        return respons.json();
+      }).catch(this.handleError);
   }
 }

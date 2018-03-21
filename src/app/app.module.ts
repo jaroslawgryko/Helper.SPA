@@ -10,7 +10,8 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { BsDropdownModule, TabsModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
-import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { Ng2TableModule } from 'ng2-table';
+import { TreeModule } from 'ng2-tree';
 import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { JednostkiResolver } from './_resolvers/jednostki.resolver';
 import { CsvContentComponent } from './csv/csv-content/csv-content.component';
+import { JednostkaTreeComponent } from './struktura/jednostka-tree/jednostka-tree.component';
 
 
 
@@ -53,6 +55,7 @@ import { CsvContentComponent } from './csv/csv-content/csv-content.component';
     MemberCardComponent,
     MemberEditComponent,
     JednostkaListaComponent,
+    JednostkaTreeComponent,
     CsvComponent,
     CsvContentComponent
   ],
@@ -67,7 +70,7 @@ import { CsvContentComponent } from './csv/csv-content/csv-content.component';
     TabsModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
-    Ng2TableModule
+    Ng2TableModule, TreeModule
   ],
   providers: [
     AuthService,
